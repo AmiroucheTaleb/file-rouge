@@ -1,0 +1,24 @@
+{
+  "name": "file-rouge",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "maintenanceModel.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.3",
+    "nodemon": "^2.0.22",
+    "react-modal": "^3.16.1"
+  }
+}
