@@ -1,4 +1,5 @@
-import TemplatePointers from "./components/TemplatePointers";
+import Lottie from "lottie-react";
+import animationData from "../../assets/88044-car-safety-edit.json";
 
 function LandingIntro() {
   return (
@@ -9,21 +10,14 @@ function LandingIntro() {
             <img
               src='/logo192.png'
               className='w-12 inline-block mr-2 mask mask-circle'
-              alt='dashwind-logo'
+              alt='dailymotors-logo'
             />
             DailyMotors
           </h1>
 
           <div className='text-center mt-12'>
-            <img
-              src='./intro.png'
-              alt='Dashwind Admin Template'
-              className='w-48 inline-block'
-            ></img>
+            <Lottie animationData={animationData} />
           </div>
-
-          {/* Importing pointers component */}
-          <TemplatePointers />
         </div>
       </div>
     </div>

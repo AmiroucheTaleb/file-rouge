@@ -26,22 +26,22 @@ const routes = [
   {
     path: "/app/dashboard",
     icon: <Squares2X2Icon className={iconClasses} />,
-    name: "Dashboard",
+    name: "Garage",
   },
   {
     path: "/app/leads", // url
     icon: <InboxArrowDownIcon className={iconClasses} />, // icon component
-    name: "Leads", // name that appear in Sidebar
+    name: "maintenance", // name that appear in Sidebar
   },
   {
     path: "/app/transactions", // url
     icon: <CurrencyDollarIcon className={iconClasses} />, // icon component
-    name: "Transactions", // name that appear in Sidebar
+    name: "Depenses", // name that appear in Sidebar
   },
   {
     path: "/app/charts", // url
     icon: <ChartBarIcon className={iconClasses} />, // icon component
-    name: "Analytics", // name that appear in Sidebar
+    name: "Statistique", // name that appear in Sidebar
   },
   {
     path: "/app/integration", // url
@@ -51,7 +51,7 @@ const routes = [
   {
     path: "/app/calendar", // url
     icon: <CalendarDaysIcon className={iconClasses} />, // icon component
-    name: "Calendar", // name that appear in Sidebar
+    name: "planning", // name that appear in Sidebar
   },
 
   {

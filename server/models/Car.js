@@ -24,11 +24,11 @@ const vehicleSchema = new Schema({
     type: Number,
     required: true,
   },
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
+  // userId: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "User",
+  //   required: true,
+  // },
 });
 
 const Vehicle = mongoose.model("Car", vehicleSchema);
