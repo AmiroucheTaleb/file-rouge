@@ -5,6 +5,7 @@ import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import { useDispatch } from "react-redux";
 import Lottie from "lottie-react";
 import animationData from "../assets/99207-moving-car.json";
+const mileage = 75254;
 
 function LeftSidebar() {
   const location = useLocation();
@@ -57,7 +58,20 @@ function LeftSidebar() {
             </li>
           );
         })}
-        <Lottie className='bg-white/[0.6] m-4 rounded-xl' animationData={animationData} />
+        <div className='bg-white/[0.6] m-4 rounded-xl'>
+          <Lottie animationData={animationData} />
+          <div className='flex w-full component-preview p-4 items-center justify-center gap-2 font-sans'>
+            <div className='form-control'>
+              <label className='label'>
+                <span className='label-text'>update mileage</span>
+              </label>
+              <label className='input-group'>
+                <input type='text' placeholder={mileage} className='input input-bordered' />
+                <span>KM</span>
+              </label>
+            </div>
+          </div>
+        </div>
       </ul>
     </div>
   );

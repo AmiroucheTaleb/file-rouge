@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const vehicleSchema = new Schema({
+const carSchema = new Schema({
   brand: {
     type: String,
     required: true,
@@ -31,6 +31,6 @@ const vehicleSchema = new Schema({
   // },
 });
 
-const Vehicle = mongoose.model("Car", vehicleSchema);
+const Car = mongoose.model("Car", carSchema);
 
-export default Vehicle;
+export default Car;

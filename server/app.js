@@ -6,12 +6,12 @@ import corsOptions from "./config/corsOptions.js";
 import credentials from "./middlewares/credentials.js";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoute.js";
-import CarRoute from "./routes/carRoute.js";
-import serviceRecordRoute from "./routes/serviceRecordRoute.js";
-import maintenanceRoute from "./routes/maintenanceRoute.js";
-import repairRoute from "./routes/repairRoute.js";
+import carRoute from "./routes/carRoute.js";
 import userRoute from "./routes/userRoute.js";
-
+import fuelRoute from "./routes/fuelRoute.js";
+import pieceRoute from "./routes/pieceRoute.js";
+import reminderRoute from "./routes/reminderRoute.js";
+import vidangeRoute from "./routes/vidangeRoute.js";
 // Load environment variables
 dotenv.config();
 
@@ -21,6 +21,13 @@ const app = Express();
 app.use(credentials);
 //cross origin Ressource sharing
 app.use(cors(corsOptions));
+// Middleware de configuration CORS
+// app.use(function (req, res, next) {
+//   res.setHeader("Access-Control-Allow-Origin", "http://192.168.149.141:3000");
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+//   next();
+// });
 //built in middleware for to handle urlencoded form data
 app.use(Express.urlencoded({ extended: true }));
 //built in middleware for json
@@ -42,10 +49,11 @@ mongoose
 // Routes
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoutes);
-app.use("/api/car", CarRoute);
-app.use("/api/serviceRecordRoute", serviceRecordRoute);
-app.use("/api/maintenance", maintenanceRoute);
-app.use("/api/repair", repairRoute);
+app.use("/api/car", carRoute);
+app.use("/api/pieces", pieceRoute);
+app.use("/api/vidanges", vidangeRoute);
+app.use("/api/reminders", reminderRoute);
+app.use("/api/fuel", fuelRoute);
 
 // Default error handling
 app.use((err, req, res, next) => {

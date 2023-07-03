@@ -28,19 +28,6 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Car",
       },
-      mileage: {
-        type: Number,
-        required: true,
-      },
-      year: {
-        type: Number,
-        required: true,
-      },
-      fuelType: {
-        type: String,
-        enum: ["diesel", "essence"],
-        required: true,
-      },
     },
   ],
 });
