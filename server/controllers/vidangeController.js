@@ -30,10 +30,13 @@ const createVidange = async (req, res) => {
   }
 };
 
-// Obtenir toutes les vidanges
+// Obtenir toutes les vidanges d'un utilisateur
 const getAllVidanges = async (req, res) => {
   try {
-    const vidanges = await Vidange.find();
+    const { userId } = req.params;
+    const cars = await Car.find({ user: userId });
+    const carIds = cars.map((car) => car._id);
+    const vidanges = await Vidange.find({ car: { $in: carIds } });
     res.status(200).json(vidanges);
   } catch (error) {
     res
@@ -115,11 +118,9 @@ const getVidangesByCar = async (req, res) => {
     const vidanges = await Vidange.find({ car: carId }).sort({ date: 1 });
     res.status(200).json(vidanges);
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "Une erreur est survenue lors de la récupération des vidanges du véhicule",
-      });
+    res.status(500).json({
+      message: "Une erreur est survenue lors de la récupération des vidanges du véhicule",
+    });
   }
 };
 
@@ -133,11 +134,9 @@ const calculateTotalVidangeCost = async (req, res) => {
     });
     res.status(200).json({ totalCost });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "Une erreur est survenue lors du calcul du coût total des vidanges du véhicule",
-      });
+    res.status(500).json({
+      message: "Une erreur est survenue lors du calcul du coût total des vidanges du véhicule",
+    });
   }
 };
 
@@ -147,12 +146,9 @@ const getLastVidangeByCar = async (req, res) => {
     const vidange = await Vidange.findOne({ car: carId }).sort({ date: -1 });
     res.status(200).json(vidange);
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message:
-          "Une erreur est survenue lors de la récupération de la dernière vidange du véhicule",
-      });
+    res.status(500).json({
+      message: "Une erreur est survenue lors de la récupération de la dernière vidange du véhicule",
+    });
   }
 };
 

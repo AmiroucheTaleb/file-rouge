@@ -14,6 +14,7 @@ const router = express.Router();
 // Route pour créer une nouvelle pièce
 router.post("/", createPiece);
 
+// /user/:id?car=135165&sort=desc
 // Route pour obtenir toutes les pièces
 router.get("/", getAllPieces);
 

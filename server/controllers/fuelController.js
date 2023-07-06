@@ -110,46 +110,8 @@ export const getFuelExpensesByCar = async (req, res) => {
 
     res.json(fuelExpenses);
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        error: "Une erreur est survenue lors de la récupération des dépenses de carburant.",
-      });
-  }
-};
-
-// Trier les dépenses de carburant par date (ordre croissant ou décroissant)
-export const sortFuelExpensesByDate = async (req, res) => {
-  try {
-    const { ascending } = req.params;
-
-    const sortOrder = ascending === "true" ? 1 : -1;
-
-    const fuelExpenses = await Fuel.find().sort({ date: sortOrder });
-
-    res.json(fuelExpenses);
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: "Une erreur est survenue lors du tri des dépenses de carburant par date." });
-  }
-};
-
-// Trier les dépenses de carburant par kilométrage (ordre croissant ou décroissant)
-export const sortFuelExpensesByMileage = async (req, res) => {
-  try {
-    const { ascending } = req.params;
-
-    const sortOrder = ascending === "true" ? 1 : -1;
-
-    const fuelExpenses = await Fuel.find().sort({ mileage: sortOrder });
-
-    res.json(fuelExpenses);
-  } catch (error) {
-    res
-      .status(500)
-      .json({
-        error: "Une erreur est survenue lors du tri des dépenses de carburant par kilométrage.",
-      });
+    res.status(500).json({
+      error: "Une erreur est survenue lors de la récupération des dépenses de carburant.",
+    });
   }
 };

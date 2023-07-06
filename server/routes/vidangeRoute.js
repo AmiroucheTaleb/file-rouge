@@ -15,8 +15,8 @@ const router = express.Router();
 // Créer une nouvelle vidange
 router.post("/", createVidange);
 
-// Obtenir toutes les vidanges
-router.get("/", getAllVidanges);
+// Obtenir toutes les vidanges d'un utilisateur
+router.get("/user/:userId", getAllVidanges);
 
 // Obtenir une vidange par son ID
 router.get("/:id", getVidangeById);
@@ -27,10 +27,10 @@ router.put("/:id", updateVidange);
 // Supprimer une vidange
 router.delete("/:id", deleteVidange);
 
-// Obtenir les vidanges par véhicule et trier par date
+// Obtenir les vidanges d'un véhicule
 router.get("/car/:carId", getVidangesByCar);
 
-// Calculer le coût total des vidanges par véhicule
+// Calculer le coût total des vidanges d'un véhicule
 router.get("/car/:carId/total-cost", calculateTotalVidangeCost);
 
 // Obtenir la dernière vidange d'un véhicule
