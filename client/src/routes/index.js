@@ -2,6 +2,8 @@
 
 import { lazy } from "react";
 
+const Fuels = lazy(() => import("../pages/protected/Fuels"));
+
 const Dashboard = lazy(() => import("../pages/protected/Dashboard"));
 const Welcome = lazy(() => import("../pages/protected/Welcome"));
 const Page404 = lazy(() => import("../pages/protected/404"));
@@ -28,6 +30,10 @@ const routes = [
   {
     path: "/leads",
     component: Leads,
+  },
+  {
+    path: "/fuels",
+    component: Fuels,
   },
 
   {

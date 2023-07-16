@@ -4,7 +4,11 @@ import Car from "../models/Car.js";
 // Créer une nouvelle vidange
 const createVidange = async (req, res) => {
   try {
-    const { car: carId, date, mileage, oilType, notes } = req.body;
+    const { car: carId, date, mileage, oilType, notes, cost } = req.body;
+    const car = await Car.findById(carId);
+    if (!car) {
+      return res.status(404).json({ message: "Véhicule introuvable" });
+    }
 
     const newVidange = await Vidange.create({
       car: carId,
@@ -12,17 +16,14 @@ const createVidange = async (req, res) => {
       mileage,
       oilType,
       notes,
+      cost,
     });
 
-    // Mettre à jour le kilométrage total du véhicule
-    const car = await Car.findById(carId);
-
-    if (!car) {
-      throw new Error("Véhicule introuvable");
+    // Mettre à jour le kilométrage de la voiture
+    if (car.mileage < mileage) {
+      car.mileage = mileage;
+      await car.save();
     }
-
-    car.mileage = mileage;
-    await car.save();
 
     res.status(201).json(newVidange);
   } catch (error) {
@@ -34,7 +35,7 @@ const createVidange = async (req, res) => {
 const getAllVidanges = async (req, res) => {
   try {
     const { userId } = req.params;
-    const cars = await Car.find({ user: userId });
+    const cars = await Car.find({ userId });
     const carIds = cars.map((car) => car._id);
     const vidanges = await Vidange.find({ car: { $in: carIds } });
     res.status(200).json(vidanges);
@@ -67,7 +68,7 @@ const getVidangeById = async (req, res) => {
 const updateVidange = async (req, res) => {
   try {
     const { id } = req.params;
-    const { car, date, mileage, oilType, notes } = req.body;
+    const { car, date, mileage, oilType, notes, cost } = req.body;
 
     const existingVidange = await Vidange.findByIdAndUpdate(
       id,
@@ -77,6 +78,7 @@ const updateVidange = async (req, res) => {
         mileage,
         oilType,
         notes,
+        cost,
       },
       { new: true }
     );
@@ -123,7 +125,7 @@ const getVidangesByCar = async (req, res) => {
     });
   }
 };
-
+//fonction a supprimée
 const calculateTotalVidangeCost = async (req, res) => {
   try {
     const { carId } = req.params;

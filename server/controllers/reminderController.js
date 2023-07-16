@@ -4,7 +4,7 @@ import Car from "../models/Car.js";
 // Créer un rappel
 export const createReminder = async (req, res) => {
   try {
-    const { carId, title, description, dueDate, mileageThreshold } = req.body;
+    const { car: carId, title, description, dueDate, mileageThreshold } = req.body;
 
     const car = await Car.findById(carId);
     if (!car) {
@@ -26,9 +26,12 @@ export const createReminder = async (req, res) => {
 };
 
 // Récupérer tous les rappels
-export const getReminders = async (req, res) => {
+export const getAllReminders = async (req, res) => {
   try {
-    const reminders = await Reminder.find();
+    const { userId } = req.params;
+    const cars = await Car.find({ userId });
+    const carIds = cars.map((car) => car._id);
+    const reminders = await Reminder.find({ car: { $in: carIds } });
     res.status(200).json(reminders);
   } catch (error) {
     res
@@ -92,33 +95,41 @@ export const deleteReminder = async (req, res) => {
   }
 };
 
-// Vérifier si un rappel est dû
-export const checkReminderDue = async (currentDate, currentMileage) => {
+// Vérifier si les rappels des voitures d'un utilisateur sont dus
+// Vérifier si les rappels des voitures d'un utilisateur sont dus
+export const checkAllRemindersDue = async (req, res) => {
   try {
-    const reminders = await Reminder.find();
+    const { userId } = req.body;
 
-    const dueReminders = reminders.filter((reminder) => {
-      return (
-        (reminder.dueDate && reminder.dueDate <= currentDate) ||
-        (reminder.mileageThreshold && reminder.mileageThreshold <= currentMileage)
-      );
+    const cars = await Car.find({ userId });
+    const carIds = cars.map((car) => car._id);
+    const reminders = await Reminder.find({
+      car: { $in: carIds },
+      completed: false,
     });
 
-    return dueReminders;
+    const dueReminders = reminders.filter((reminder) =>
+      reminder.isDue(new Date(), reminder.car.mileage)
+    );
+
+    res.status(200).json(dueReminders);
   } catch (error) {
-    throw new Error("Une erreur est survenue lors de la vérification des rappels");
+    res
+      .status(500)
+      .json({ message: "Une erreur est survenue lors de la vérification des rappels" });
   }
 };
 
 // Récupérer tous les rappels associés à un véhicule spécifique
-export const getRemindersByCar = async (carId) => {
+export const getRemindersByCar = async (req, res) => {
   try {
-    const reminders = await Reminder.find({ car: carId });
-    return reminders;
+    const { carId } = req.params;
+    const reminders = await Reminder.find({ car: carId }).sort({ date: 1 });
+    res.status(200).json(reminders);
   } catch (error) {
-    throw new Error(
-      "Une erreur s'est produite lors de la récupération des rappels associés au véhicule."
-    );
+    res.status(500).json({
+      message: "Une erreur est survenue lors de la récupération des vidanges du véhicule",
+    });
   }
 };
 

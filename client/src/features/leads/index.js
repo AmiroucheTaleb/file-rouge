@@ -12,7 +12,9 @@ const TopSideButtons = () => {
   const dispatch = useDispatch();
 
   const openAddNewLeadModal = () => {
-    dispatch(openModal({ title: "ajouter une voiture", bodyType: MODAL_BODY_TYPES.LEAD_ADD_NEW }));
+    dispatch(
+      openModal({ title: "ajouter une depense carburant", bodyType: MODAL_BODY_TYPES.LEAD_ADD_NEW })
+    );
   };
 
   return (

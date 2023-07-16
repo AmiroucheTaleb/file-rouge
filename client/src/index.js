@@ -7,15 +7,18 @@ import store from "./app/store";
 import { Provider } from "react-redux";
 import SuspenseContent from "./containers/SuspenseContent";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const queryClient = new QueryClient();
 root.render(
   // <React.StrictMode>
-  <Suspense fallback={<SuspenseContent />}>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </Suspense>
+  <QueryClientProvider client={queryClient}>
+    <Suspense fallback={<SuspenseContent />}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </Suspense>
+  </QueryClientProvider>
   // </React.StrictMode>
 );
 serviceWorkerRegistration.register();

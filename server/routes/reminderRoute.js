@@ -1,14 +1,12 @@
 import express from "express";
 import {
   createReminder,
+  getAllReminders,
   getReminderById,
   updateReminder,
   deleteReminder,
+  checkAllRemindersDue,
   getRemindersByCar,
-  completeReminder,
-  getRemindersByStatus,
-  sortRemindersByDate,
-  sortRemindersByMileage,
 } from "../controllers/reminderController.js";
 
 const router = express.Router();
@@ -16,8 +14,11 @@ const router = express.Router();
 // Créer un rappel
 router.post("/", createReminder);
 
-// Récupérer un rappel par ID
-router.get("/:id", getReminderById);
+// Récupérer tous les rappels
+router.get("/:userId", getAllReminders);
+
+// Récupérer un rappel par son ID
+router.get("/reminder/:id", getReminderById);
 
 // Mettre à jour un rappel
 router.put("/:id", updateReminder);
@@ -25,19 +26,10 @@ router.put("/:id", updateReminder);
 // Supprimer un rappel
 router.delete("/:id", deleteReminder);
 
+// Vérifier si les rappels des voitures d'un utilisateur sont dus
+router.post("/check-due", checkAllRemindersDue);
+
 // Récupérer tous les rappels associés à un véhicule spécifique
 router.get("/car/:carId", getRemindersByCar);
-
-// Marquer un rappel comme complet
-router.put("/:id/complete", completeReminder);
-
-// Récupérer les rappels par statut (complet ou non complet)
-router.get("/status/:completed", getRemindersByStatus);
-
-// Trier les rappels par date (ordre croissant ou décroissant)
-router.get("/sort/date/:ascending", sortRemindersByDate);
-
-// Trier les rappels par kilométrage (ordre croissant ou décroissant)
-router.get("/sort/mileage/:ascending", sortRemindersByMileage);
 
 export default router;

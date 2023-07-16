@@ -27,6 +27,7 @@ const pieceSchema = new mongoose.Schema(
         cost: {
           type: Number,
           required: true,
+          default: 0,
         },
       },
     ],
@@ -36,7 +37,7 @@ const pieceSchema = new mongoose.Schema(
     laborCost: {
       type: Number,
       required: true,
-      defaultValue: 0,
+      default: 0,
     },
   },
   {

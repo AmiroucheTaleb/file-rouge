@@ -5,14 +5,17 @@ import {
   updateFuelExpense,
   deleteFuelExpense,
   getFuelExpensesByCar,
-  sortFuelExpensesByDate,
-  sortFuelExpensesByMileage,
+  getAllFuelExpenses,
+  calculateTotalFuelCost,
 } from "../controllers/fuelController.js";
 
 const router = express.Router();
 
 // Créer une dépense de carburant
 router.post("/", createFuelExpense);
+
+// récupérer toute les depenses de carburant d'un utilisateur
+router.get("/user", getAllFuelExpenses);
 
 // Récupérer une dépense de carburant par ID
 router.get("/:id", getFuelExpenseById);
@@ -26,10 +29,7 @@ router.delete("/:id", deleteFuelExpense);
 // Récupérer toutes les dépenses de carburant associées à un véhicule spécifique
 router.get("/car/:carId", getFuelExpensesByCar);
 
-// Trier les dépenses de carburant par date (ordre croissant ou décroissant)
-router.get("/sort/date/:ascending", sortFuelExpensesByDate);
-
-// Trier les dépenses de carburant par kilométrage (ordre croissant ou décroissant)
-router.get("/sort/mileage/:ascending", sortFuelExpensesByMileage);
+// calcule du cout total des depenses de carburant associées à un véhicule spécifique
+router.get("/car/:carId/total-cost", calculateTotalFuelCost);
 
 export default router;

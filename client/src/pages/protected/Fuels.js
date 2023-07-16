@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setPageTitle } from "../../features/common/headerSlice";
-import Leads from "../../features/leads";
+import Fuels from "../../features/fuels";
 
 function InternalPage() {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ function InternalPage() {
     dispatch(setPageTitle({ title: "Fuel" }));
   }, []);
 
-  return <Leads />;
+  return <Fuels />;
 }
 
 export default InternalPage;

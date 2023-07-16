@@ -22,6 +22,11 @@ const vidangeSchema = new mongoose.Schema(
     notes: {
       type: String,
     },
+    cost: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
   },
   {
     timestamps: true,

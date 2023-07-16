@@ -13,9 +13,10 @@ import DashboardTopBar from "./components/DashboardTopBar";
 import { useDispatch } from "react-redux";
 import { showNotification } from "../common/headerSlice";
 import DoughnutChart from "./components/DoughnutChart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Car from "../../components/car/index";
-
+import { getCars } from "../../api/axios";
+import { useQuery } from "@tanstack/react-query";
 const statsData = [
   {
     title: "New Users",
@@ -45,7 +46,7 @@ const statsData = [
 
 function Dashboard() {
   const dispatch = useDispatch();
-
+  const { data, isLoading, error } = useQuery(["cars"], getCars);
   const updateDashboardPeriod = (newRange) => {
     // Dashboard range changed, write code to refresh your values
     dispatch(

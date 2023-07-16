@@ -4,7 +4,7 @@ import Car from "../models/Car.js";
 // Créer une nouvelle pièce
 const createPiece = async (req, res) => {
   try {
-    const { carId, date, mileage, replacements, notes, laborCost } = req.body;
+    const { car: carId, date, mileage, replacements, notes, laborCost } = req.body;
 
     // Vérifier si la voiture existe
     const car = await Car.findById(carId);
@@ -23,8 +23,10 @@ const createPiece = async (req, res) => {
     });
 
     // Mettre à jour le kilométrage de la voiture
-    car.mileage = mileage;
-    await car.save();
+    if (car.mileage < mileage) {
+      car.mileage = mileage;
+      await car.save();
+    }
 
     res.status(201).json(newPiece);
   } catch (error) {
@@ -35,7 +37,10 @@ const createPiece = async (req, res) => {
 // Obtenir toutes les pièces
 const getAllPieces = async (req, res) => {
   try {
-    const pieces = await Piece.find();
+    const { userId } = req.params;
+    const cars = await Car.find({ userId });
+    const carIds = cars.map((car) => car._id);
+    const pieces = await Piece.find({ car: { $in: carIds } });
     res.status(200).json(pieces);
   } catch (error) {
     res.status(500).json({ message: "Une erreur est survenue lors de la récupération des pièces" });
@@ -83,13 +88,6 @@ const updatePiece = async (req, res) => {
       return res.status(404).json({ message: "Pièce introuvable" });
     }
 
-    // Mettre à jour le kilométrage de la voiture
-    const car = await Car.findById(carId);
-    if (car) {
-      car.mileage = mileage;
-      await car.save();
-    }
-
     res.status(200).json(existingPiece);
   } catch (error) {
     res.status(500).json({ message: "Une erreur est survenue lors de la mise à jour de la pièce" });
@@ -114,7 +112,7 @@ const deletePiece = async (req, res) => {
 };
 
 // Obtenir les pièces d'un véhicule triées par date
-const getPiecesByCarAndSortByDate = async (req, res) => {
+const getPiecesByCar = async (req, res) => {
   try {
     const { carId } = req.params;
 
@@ -129,21 +127,27 @@ const getPiecesByCarAndSortByDate = async (req, res) => {
 };
 
 // Calculer le coût total des pièces d'un véhicule
+//
+// Calculer le coût total des pièces pour une voiture spécifique
 const getTotalCostByCar = async (req, res) => {
   try {
     const { carId } = req.params;
 
     const pieces = await Piece.find({ car: carId });
 
-    const totalCost = pieces.reduce((acc, piece) => acc + piece.laborCost, 0);
+    let totalCost = 0;
+    pieces.forEach((piece) => {
+      piece.replacements.forEach((replacement) => {
+        totalCost += replacement.cost;
+      });
+      totalCost += piece.laborCost;
+    });
 
     res.status(200).json({ totalCost });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "Une erreur est survenue lors du calcul du coût total des pièces du véhicule",
-      });
+    res.status(500).json({
+      message: "Une erreur est survenue lors du calcul du coût total des pièces pour la voiture",
+    });
   }
 };
 
@@ -153,6 +157,6 @@ export {
   getPieceById,
   updatePiece,
   deletePiece,
-  getPiecesByCarAndSortByDate,
+  getPiecesByCar,
   getTotalCostByCar,
 };

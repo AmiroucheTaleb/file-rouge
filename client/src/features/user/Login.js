@@ -4,6 +4,9 @@ import LandingIntro from "./LandingIntro";
 import ErrorText from "../../components/Typography/ErrorText";
 import InputText from "../../components/Input/InputText";
 import { login } from "../../api/axios";
+import { useDispatch } from "react-redux";
+import { showNotification } from "../common/headerSlice";
+
 function Login() {
   const INITIAL_LOGIN_OBJ = {
     password: "",
@@ -13,7 +16,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [loginObj, setLoginObj] = useState(INITIAL_LOGIN_OBJ);
-
+  const dispatch = useDispatch();
   const submitForm = async (e) => {
     e.preventDefault();
     setErrorMessage("");
@@ -28,6 +31,7 @@ function Login() {
       try {
         await login(loginObj);
       } catch (err) {
+        dispatch(showNotification({ message: "email ou mot de passe incorrecte", status: 0 }));
         setErrorMessage(err?.response?.data.message);
         setLoading(false);
       }

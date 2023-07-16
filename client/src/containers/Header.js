@@ -54,7 +54,7 @@ function Header() {
           {/* Multiple theme selection, uncomment this if you want to enable multiple themes selection, 
                 also includes corporate and retro themes in tailwind.config file */}
 
-          <select className='select select-sm mr-4' data-choose-theme>
+          {/* <select className='select select-sm mr-4' data-choose-theme>
             <option disabled selected>
               Theme
             </option>
@@ -62,7 +62,7 @@ function Header() {
             <option value='dark'>Dark</option>
             <option value='corporate'>Corporate</option>
             <option value='retro'>Retro</option>
-          </select>
+          </select> */}
 
           {/* Light and dark theme selection toogle **/}
           <label className='swap '>

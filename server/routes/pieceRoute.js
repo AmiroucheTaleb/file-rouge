@@ -5,7 +5,7 @@ import {
   getPieceById,
   updatePiece,
   deletePiece,
-  getPiecesByCarAndSortByDate,
+  getPiecesByCar,
   getTotalCostByCar,
 } from "../controllers/pieceController.js";
 
@@ -14,9 +14,8 @@ const router = express.Router();
 // Route pour créer une nouvelle pièce
 router.post("/", createPiece);
 
-// /user/:id?car=135165&sort=desc
 // Route pour obtenir toutes les pièces
-router.get("/", getAllPieces);
+router.get("/user/:userId", getAllPieces);
 
 // Route pour obtenir une pièce par son ID
 router.get("/:id", getPieceById);
@@ -28,9 +27,9 @@ router.put("/:id", updatePiece);
 router.delete("/:id", deletePiece);
 
 // Route pour obtenir les pièces d'un véhicule triées par date
-router.get("/vehicle/:vehicleId/sortByDate", getPiecesByCarAndSortByDate);
+router.get("/car/:carId", getPiecesByCar);
 
 // Route pour calculer le coût total des pièces d'un véhicule
-router.get("/vehicle/:vehicleId/totalCost", getTotalCostByCar);
+router.get("/car/:carId/totalCost", getTotalCostByCar);
 
 export default router;

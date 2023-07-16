@@ -12,6 +12,7 @@ import fuelRoute from "./routes/fuelRoute.js";
 import pieceRoute from "./routes/pieceRoute.js";
 import reminderRoute from "./routes/reminderRoute.js";
 import vidangeRoute from "./routes/vidangeRoute.js";
+import { verifyJWT } from "./middlewares/verifyJwt.js";
 // Load environment variables
 dotenv.config();
 
@@ -47,13 +48,13 @@ mongoose
   .catch((err) => console.log(err));
 
 // Routes
-app.use("/api/users", userRoute);
+app.use("/api/users", verifyJWT, userRoute);
 app.use("/api/auth", authRoutes);
-app.use("/api/car", carRoute);
-app.use("/api/pieces", pieceRoute);
-app.use("/api/vidanges", vidangeRoute);
-app.use("/api/reminders", reminderRoute);
-app.use("/api/fuel", fuelRoute);
+app.use("/api/car", verifyJWT, carRoute);
+app.use("/api/pieces", verifyJWT, pieceRoute);
+app.use("/api/vidanges", verifyJWT, vidangeRoute);
+app.use("/api/reminders", verifyJWT, reminderRoute);
+app.use("/api/fuel", verifyJWT, fuelRoute);
 
 // Default error handling
 app.use((err, req, res, next) => {

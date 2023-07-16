@@ -23,6 +23,11 @@ const routes = [
     name: "Garage",
   },
   {
+    path: "/app/fuels", // url
+    icon: <InboxArrowDownIcon className={iconClasses} />, // icon component
+    name: "journal de ravitaillement", // name that appear in Sidebar
+  },
+  {
     path: "/app/leads", // url
     icon: <InboxArrowDownIcon className={iconClasses} />, // icon component
     name: "maintenance", // name that appear in Sidebar

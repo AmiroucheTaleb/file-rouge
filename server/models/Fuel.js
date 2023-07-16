@@ -15,7 +15,7 @@ const fuelSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    fuelExpense: {
+    cost: {
       type: Number,
       required: true,
     },
