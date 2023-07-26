@@ -7,6 +7,7 @@ const CarController = {
 
     try {
       const { brand, model, year, fuelType, mileage } = req.body;
+      console.log(userId, brand, model, year, fuelType);
 
       const car = new Car({
         brand,

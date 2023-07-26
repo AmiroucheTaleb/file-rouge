@@ -1,8 +1,9 @@
 module.exports = Object.freeze({
   MODAL_BODY_TYPES: {
     USER_DETAIL: "USER_DETAIL",
-    LEAD_ADD_NEW: "LEAD_ADD_NEW",
     FUEL_ADD_NEW: "FUEL_ADD_NEW",
+    CAR_ADD_NEW: "CAR_ADD_NEW",
+    VIDANGE_ADD_NEW: "VIDANGE_ADD_NEW",
     ADD_NEW: "ADD_NEW",
     CONFIRMATION: "CONFIRMATION",
     DEFAULT: "",
@@ -14,7 +15,7 @@ module.exports = Object.freeze({
   },
 
   CONFIRMATION_MODAL_CLOSE_TYPES: {
-    LEAD_DELETE: "LEAD_DELETE",
+    VIDANGE_DELETE: "VIDANGE_DELETE",
     FUEL_DELETE: "FUEL_DELETE",
   },
 });

@@ -34,12 +34,23 @@ const createVidange = async (req, res) => {
 // Obtenir toutes les vidanges d'un utilisateur
 const getAllVidanges = async (req, res) => {
   try {
-    const { userId } = req.params;
-    const cars = await Car.find({ userId });
-    const carIds = cars.map((car) => car._id);
-    const vidanges = await Vidange.find({ car: { $in: carIds } });
+    const filter = {};
+    req.query.userCar !== "" && (filter.car = req.query.userCar);
+
+    let carIds;
+    if (req.query.userCar === "") {
+      const userId = req.user;
+      const cars = await Car.find({ userId });
+      carIds = cars.map((car) => car._id);
+    } else {
+      carIds = [req.query.userCar];
+    }
+    // const carIds = cars.map((car) => car._id);
+
+    const vidanges = await Vidange.find({ car: { $in: carIds } }).populate("car");
     res.status(200).json(vidanges);
   } catch (error) {
+    console.log(error);
     res
       .status(500)
       .json({ message: "Une erreur est survenue lors de la récupération des vidanges" });

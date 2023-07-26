@@ -51,7 +51,11 @@ export const getAllFuelExpenses = async (req, res) => {
     res.status(200).json(fuelExpenses);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Une erreur est survenue lors de la récupération des pièces" });
+    res
+      .status(500)
+      .json({
+        message: "Une erreur est survenue lors de la récupération des depense de carburant",
+      });
   }
 };
 

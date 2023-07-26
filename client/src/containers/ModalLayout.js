@@ -3,8 +3,9 @@ import { MODAL_BODY_TYPES } from "../utils/globalConstantUtil";
 import { useSelector, useDispatch } from "react-redux";
 import { closeModal } from "../features/common/modalSlice";
 import ConfirmationModalBody from "../features/common/components/ConfirmationModalBody";
-import AddLeadModalBody from "../features/leads/components/AddLeadModalBody";
+import AddVidangeModalBody from "../features/vidanges/components/AddVidangeModalBody";
 import AddFuelModalBody from "../features/fuels/components/AddFuelModalBody";
+import AddCarModalBody from "../features/dashboard/components/AddCarModalBody";
 import AddNew from "../components/Input/AddNew";
 
 function ModalLayout() {
@@ -32,11 +33,14 @@ function ModalLayout() {
           {/* Loading modal body according to different modal type */}
           {
             {
-              [MODAL_BODY_TYPES.LEAD_ADD_NEW]: (
-                <AddLeadModalBody closeModal={close} extraObject={extraObject} />
-              ),
               [MODAL_BODY_TYPES.FUEL_ADD_NEW]: (
                 <AddFuelModalBody closeModal={close} extraObject={extraObject} />
+              ),
+              [MODAL_BODY_TYPES.VIDANGE_ADD_NEW]: (
+                <AddVidangeModalBody closeModal={close} extraObject={extraObject} />
+              ),
+              [MODAL_BODY_TYPES.CAR_ADD_NEW]: (
+                <AddCarModalBody closeModal={close} extraObject={extraObject} />
               ),
               [MODAL_BODY_TYPES.CONFIRMATION]: (
                 <ConfirmationModalBody extraObject={extraObject} closeModal={close} />

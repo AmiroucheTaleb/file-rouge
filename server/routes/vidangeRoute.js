@@ -16,7 +16,7 @@ const router = express.Router();
 router.post("/", createVidange);
 
 // Obtenir toutes les vidanges d'un utilisateur
-router.get("/user/:userId", getAllVidanges);
+router.get("/user", getAllVidanges);
 
 // Obtenir une vidange par son ID
 router.get("/:id", getVidangeById);

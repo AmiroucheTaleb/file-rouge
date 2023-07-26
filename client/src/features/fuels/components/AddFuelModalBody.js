@@ -77,7 +77,7 @@ function AddLeadModalBody({ closeModal, extraObject }) {
       <select
         value={fuelObj.car}
         onChange={(e) => updateFormValue({ updateType: "car", value: e.target.value })}
-        className='mt-4'
+        className='mt-4 btn-outline'
       >
         <option value=''>Sélectionner une voiture</option>
         {carOptions.map((car) => (

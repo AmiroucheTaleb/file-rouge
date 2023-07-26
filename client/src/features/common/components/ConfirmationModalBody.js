@@ -4,7 +4,7 @@ import {
   CONFIRMATION_MODAL_CLOSE_TYPES,
   MODAL_CLOSE_TYPES,
 } from "../../../utils/globalConstantUtil";
-import { deleteLead } from "../../leads/leadSlice";
+
 import { showNotification } from "../headerSlice";
 
 function ConfirmationModalBody({ extraObject, closeModal }) {
@@ -13,11 +13,7 @@ function ConfirmationModalBody({ extraObject, closeModal }) {
   const { message, type, _id, index, refetch } = extraObject;
 
   const proceedWithYes = async () => {
-    if (type === CONFIRMATION_MODAL_CLOSE_TYPES.LEAD_DELETE) {
-      // positive response, call api or dispatch redux function
-      // dispatch(deleteLead({index}))
-      dispatch(showNotification({ message: "Lead Deleted!", status: 1 }));
-    } else if (type === CONFIRMATION_MODAL_CLOSE_TYPES.FUEL_DELETE) {
+    if (type === CONFIRMATION_MODAL_CLOSE_TYPES.FUEL_DELETE) {
       // positive response, call api or dispatch redux function
       // dispatch(deleteLead({index}))
       try {

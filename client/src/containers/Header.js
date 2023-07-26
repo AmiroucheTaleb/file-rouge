@@ -51,19 +51,6 @@ function Header() {
         </div>
 
         <div className='order-last'>
-          {/* Multiple theme selection, uncomment this if you want to enable multiple themes selection, 
-                also includes corporate and retro themes in tailwind.config file */}
-
-          {/* <select className='select select-sm mr-4' data-choose-theme>
-            <option disabled selected>
-              Theme
-            </option>
-            <option value='light'>Default</option>
-            <option value='dark'>Dark</option>
-            <option value='corporate'>Corporate</option>
-            <option value='retro'>Retro</option>
-          </select> */}
-
           {/* Light and dark theme selection toogle **/}
           <label className='swap '>
             <input type='checkbox' />
@@ -99,7 +86,7 @@ function Header() {
           <div className='dropdown dropdown-end ml-4'>
             <label tabIndex={0} className='btn btn-ghost btn-circle avatar'>
               <div className='w-10 rounded-full'>
-                <img src='https://placeimg.com/80/80/people' alt='profile' />
+                <img src='/symbol.png' alt='profile' />
               </div>
             </label>
             <ul
@@ -112,9 +99,7 @@ function Header() {
                   <span className='badge'>New</span>
                 </Link>
               </li>
-              <li className=''>
-                <Link to={"/app/settings-billing"}>Bill History</Link>
-              </li>
+
               <div className='divider mt-0 mb-0'></div>
               <li>
                 <a onClick={logoutUser}>Logout</a>
